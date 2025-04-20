@@ -1,0 +1,26 @@
+.login-container {
+    max-width: 400px;
+    margin: 50vh auto 0; /* Center horizontally and push down by half viewport height */
+    transform: translateY(-50%); /* Adjust for the container's own height */
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.login-container .form-group {
+    margin-bottom: 20px;
+}
+
+html, body {
+    height: 100%; /* Make html and body take up the full viewport height */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+.content {
+    flex: 1 0 auto; /* Allow content to grow and push the footer down */
+    padding-top: 20px; /* Add some space above the content */
+    padding-bottom: 60px; /* Add space for the fixed footer */
+}
