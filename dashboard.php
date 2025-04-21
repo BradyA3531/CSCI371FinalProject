@@ -20,11 +20,12 @@ include("includes/header.php")
 </head>
 <body>
    <div class="content">
-   <?php if($userrole === "student"): ?>
-      student view
-   <?php else:?>
-      teacher view
-   <?php endif; ?>
+   <?php 
+   if($userrole === "student")
+      include("includes/studentview.php");
+   else
+      include("includes/teacherview.php"); 
+   ?>
    </div>
 </body>
 </html>

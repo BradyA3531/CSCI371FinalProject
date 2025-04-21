@@ -24,3 +24,8 @@ body {
     padding-top: 20px; /* Add some space above the content */
     padding-bottom: 60px; /* Add space for the fixed footer */
 }
+
+.account-details{
+    padding-left: 15px;
+    
+}

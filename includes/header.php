@@ -35,17 +35,16 @@ $userrole = $_SESSION['userrole'];
                             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                                 <ul class="navbar-nav">
                                     <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                        <a class="nav-link active" aria-current="page" href="dashboard.php">Home</a>
                                     </li>
-                                    <?php if ($userrole === "student"): ?>
+                                    <?php if ($userrole === "instructor"): ?>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="student_schedule.php">Schedule Appointment</a>
-                                        </li>
-                                    <?php else: ?>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="teacher_schedule.php">Schedule Appointment</a>
+                                            <a class="nav-link" href="teacher_availability.php">Set Availability</a>
                                         </li>
                                     <?php endif; ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="accountdetails.php">Account Details</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="logout.php" onclick="return confirm('Are you sure you want to log out?');">Logout</a>
                                     </li>

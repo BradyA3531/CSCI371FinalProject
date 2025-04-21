@@ -5,17 +5,17 @@ $error_message = "";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    $username = $_POST["username"];
+    $email = $_POST["email"];
     $password = $_POST["password"];
 
     $sql = "SELECT userid, username, password, userrole, email
             FROM users
-            WHERE username = ?";
+            WHERE email = ?";
 
     $stmt = $conn->prepare($sql);
 
     if($stmt){
-        $stmt->bind_param("s",$username);
+        $stmt->bind_param("s",$email);
 
         $stmt->execute();
 
@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $_SESSION["username"] = $user['username'];
                 $_SESSION["userrole"] = $user['userrole'];
                 $_SESSION["userid"] = $user['userid'];
+                $_SESSION["email"] = $user["email"];
                 header('Location: dashboard.php');
                 exit();
         } 
@@ -60,8 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <?php endif; ?>
         <form method="POST">
             <div class="form-group">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+                <label for="username" class="form-label">Email</label>
+                <input type="email" class="form-control" id="username" name="email" placeholder="Enter your email" required>
             </div>
             <div class="form-group">
                 <label for="password" class="form-label">Password</label>
