@@ -27,7 +27,7 @@ if ($stmt) {
 }
 
 if(!in_array($_SESSION['userid'], $students)){
-    header("Location: deleteresponse.php?success=false?message=cannot delete a presentation you do not belong to.");
+    header("Location: deleteresponse.php?success=false&message=Must+be+apart+of+group+to+delete+project");
     exit();
 }
 
@@ -41,10 +41,10 @@ if ($stmt) {
     $stmt->execute();
     $stmt->close();
 
-    header("Location: deleteresponse.php?success=true?message=successfully deleted the appointment.");
+    header("Location: deleteresponse.php?success=true&message=successfully+deleted+the+appointment");
     exit();
 } else {
-    header("Location: deleteresponse.php?success=false?message=Deletion failed.");
+    header("Location: deleteresponse.php?success=false&message=Deletion+failed");
     exit();
 }
 
