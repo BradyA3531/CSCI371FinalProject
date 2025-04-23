@@ -12,25 +12,28 @@ include("includes/header.php")
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
    <div class="content">
-   <?php 
-   if($userrole === "student")
-      include("includes/studentview.php");
-   else
-      include("includes/teacherview.php"); 
-   ?>
+      <?php
+      if ($userrole === "student")
+         include("includes/studentview.php");
+      else
+         include("includes/teacherview.php");
+      ?>
    </div>
 </body>
+
 </html>
 
-<?php 
+<?php
 include("includes/footer.php")
 
 ?>
