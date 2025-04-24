@@ -26,11 +26,6 @@ if ($stmt) {
     $stmt->close();
 }
 
-if(!in_array($_SESSION['userid'], $students)){
-    header("Location: deleteresponse.php?success=false&message=Must+be+apart+of+group+to+delete+project");
-    exit();
-}
-
 $deleteAppointmentStmt = "DELETE FROM appointments
                           WHERE appointmentid = ?; ";
 
