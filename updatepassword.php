@@ -3,8 +3,8 @@
 require_once("required/config.php");
 
 // **Important:** Specify the user ID you want to update and the new plain-text password
-$userIdToUpdate = 3; // Replace with the actual user ID
-$newPlainPassword = "studentpass"; // Replace with the new password
+$userIdToUpdate = 13; // Replace with the actual user ID
+$newPlainPassword = "pass"; // Replace with the new password
 
 // Hash the new password using PHP's password_hash() (RECOMMENDED)
 $hashedPassword = password_hash($newPlainPassword, PASSWORD_DEFAULT);

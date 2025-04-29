@@ -1,9 +1,9 @@
 <?php
 
-$db_host = '127.0.0.1';
-$db_user = 'root';
-$db_pass = 'pass';
-$db_name = 'finalproj';
+$db_host = 'rei.cs.ndsu.nodak.edu';
+$db_user = 'spencer_collins_371s25';
+$db_pass = 'pN8Da1eNqN0!';
+$db_name = 'spencer_collins_db371s25';
 
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
