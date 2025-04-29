@@ -7,8 +7,6 @@
 
         $newsql = "SELECT * FROM appointment_availability WHERE availabilityid = ?";
 
-        $appdeletesql = "DELETE FROM appointments WHERE availabilityid = ?";
-
         if ($stmt = $conn->prepare($newsql)) {
             $stmt->bind_param("i", $availabilityid);
             
@@ -17,23 +15,16 @@
             if($stmt){
                 $result = $stmt->get_result()->fetch_assoc();
                 $aptid = $result['appointmentid'];
-            }
-
-        
-        }else{
-            echo "Error preparing statement: " . $conn->error;
+            }    
         }
+
+        $appdeletesql = "DELETE FROM appointments WHERE appointmentid = ?";
 
         if ($stmt = $conn->prepare($appdeletesql)) {
             $stmt->bind_param("i", $aptid);
             
             if ($stmt->execute()) {
-            } else {
-                echo "Error deleting record: " . $conn->error;
-            }
-            $stmt->close();
-        }else{
-            echo "Error preparing statement: " . $conn->error;
+            } 
         }
 
         $sql = "DELETE FROM availability WHERE availabilityid = ?";
@@ -41,19 +32,15 @@
         if ($stmt = $conn->prepare($sql)) {
             $stmt->bind_param("i", $availabilityid);
             
-            if ($stmt->execute()) {
+            $stmt->execute();
+
+            if ($stmt) {
                 header("Location: teacher_availability.php");
                 exit;
-            } else {
-                echo "Error deleting record: " . $conn->error;
-            }
+            } 
             $stmt->close();
-        }else{
-            echo "Error preparing statement: " . $conn->error;
         }
         
-    }else {
-        echo "No Evailabilityid provided.";
     }
     $conn->close();
 ?>
