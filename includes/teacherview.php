@@ -8,6 +8,7 @@ $userid = $_SESSION['userid'];
 
 $aptStmt = "SELECT 
     aa.availabilityid,
+    aa.appointmentid,
     a.instructorid,
     a.timeslot,
     ap.project_name,
@@ -25,7 +26,7 @@ LEFT JOIN
 WHERE
     a.instructorid = ?
 GROUP BY 
-    aa.availabilityid, a.instructorid, a.timeslot, ap.project_name
+    aa.availabilityid, aa.appointmentid , a.instructorid, a.timeslot, ap.project_name
 ORDER BY
     a.timeslot;" ;
 
@@ -44,13 +45,15 @@ if ($stmt) {
             <td>Group Members</td>
             <td>Presentation Date</td>
             <td>Presentation Time</td>
+            <td>Extra</td>
             </tr>");
 
     while ($row = mysqli_fetch_assoc($result))
         {
             list($date, $time) = explode(' ', $row["timeslot"]);
 
-            echo("<tr><td>".$row["project_name"]."</td><td>".$row["usernames"]."</td><td>".$date."</td><td>".$time."</td></tr>");
+            echo("<tr><td>".$row["project_name"]."</td><td>".$row["usernames"]."</td><td>".$date."</td><td>".$time."</td>
+            <td><a href='updateappointment.php?id=" . $row["appointmentid"] . "'>edit</a> <a href='deleteappointment.php?id=" . $row["appointmentid"] . "'>delete</a></td></tr>");
         }
 
     echo("</table>");
