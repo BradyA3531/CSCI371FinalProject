@@ -10,20 +10,25 @@ include("includes/header.php");
 
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $date = $_POST['date']; // Example: 2025-04-27
-    $time = $_POST['time']; // Example: 14:00:00
+    $date = $_POST['date'];
+    $time = $_POST['time'];
 
     if (!empty($date) && !empty($time)) {
         $datetime = $date . ' ' . $time; // Combine into 'YYYY-MM-DD HH:MM:SS'
 
-        // Now you can safely use $datetime in your SQL insert
-        $stmt = $conn->prepare('INSERT INTO availability (instructorid, timeslot) VALUES (?, ?)');
-        $stmt->bind_param('is', $userid, $datetime); // 'i' = integer, 's' = string
-        $stmt->execute();
-
-        // Redirect to the same page to avoid resubmission on refresh
-        header("Location: ".$_SERVER['PHP_SELF']);
-        exit; // Stop further script execution after the redirect
+        $checkStmt = $conn->prepare('SELECT * FROM availability WHERE instructorid = ? AND timeslot = ?');
+        $checkStmt->bind_param('is', $userid, $datetime);
+        $checkStmt->execute();
+        $checkStmt->store_result();
+        if($checkStmt->num_rows == 0){
+            $stmt = $conn->prepare('INSERT INTO availability (instructorid, timeslot) VALUES (?, ?)');
+            $stmt->bind_param('is', $userid, $datetime);
+            $stmt->execute();
+            header("Location: ".$_SERVER['PHP_SELF']);
+            exit;
+        }else{
+            echo "<span class='text-danger'>This availability is used already</span>";
+        }
     }
 }
 
@@ -51,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ?>
   </select>
 
-  <button type="submit">Submit</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 <h2>Current Availabilities</h2>
@@ -80,8 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "<tr>";
             echo "<td>$date</td>";
             echo "<td>$time</td>";
-            echo "<td><a href='availabilitydelete.php?availabilityid=" . $row["availabilityid"] . "'>Delete</a>
-            <a href='availabilityedit.php?availabilityid=" . $row["availabilityid"] . "'>edit</a></td>";
+            echo "<td><a class='btn btn-danger' href='availabilitydelete.php?availabilityid=" . $row["availabilityid"] . "'>Delete</a>
+            <a class='btn btn-success' href='availabilityedit.php?availabilityid=" . $row["availabilityid"] . "&date=$date&time=$time'>edit</a></td>";
             echo "</tr>";
         }
         ?>

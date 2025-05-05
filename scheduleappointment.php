@@ -81,10 +81,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $stmt = $conn->prepare($userAptInsertStmt);
 
     if ($stmt) {
-        $stmt->bind_param("ii", $_SESSION["userid"], $appointmentid);
 
-        $stmt->execute();
+        if($_SESSION['userrole'] == 'student')
+        {
+            $stmt->bind_param("ii", $_SESSION["userid"], $appointmentid);
 
+            $stmt->execute();
+        }
         if ($groupMembers) {
             foreach ($groupMembers as $member) {
                 $stmt->bind_param("ii", $member, $appointmentid);

@@ -6,6 +6,9 @@ $username = $_SESSION['username'];
 $userrole = $_SESSION['userrole'];
 $userid = $_SESSION['userid'];
 
+$initialDate = isset($_GET['date']) ? $_GET['date'] : '';
+$initialTime = isset($_GET['time']) ? $_GET['time'] : '';
+
 include("includes/header.php");
 
 $availabilityid = $_GET['availabilityid'];
@@ -24,8 +27,8 @@ if ($row = mysqli_fetch_assoc($result)) {
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $date = $_POST['date']; // Example: 2025-04-27
-    $time = $_POST['time']; // Example: 14:00:00
+    $date = $_POST['date'];
+    $time = $_POST['time']; 
     $availabilityid = $row["availabilityid"]; // The ID of the availability to update
 
     if (!empty($date) && !empty($time)) {
@@ -45,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Availability updated successfully!";
         }
 
-        // Redirect to the same page to avoid resubmission on refresh
         header("Location: teacher_availability.php");
         exit; // Stop further script execution after the redirect
     } else {
@@ -58,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <form method="POST" action="">
   <label for="date">Select Date:</label>
-  <input type="date" name="date" id="date" required>
+  <input type="date" name="date" id="date" required value="<?php echo htmlspecialchars($initialDate); ?>">
 
   <label for="time">Select Time:</label>
   <select name="time" id="time" required>
@@ -70,15 +72,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Loop through every 20 minutes
     while ($startTime <= $endTime) {
         $formattedTime = date("H:i", $startTime);
-        echo "<option value='$formattedTime'>$formattedTime</option>";
-
-        // Increment by 20 minutes
+        $selected = ($formattedTime === $initialTime) ? "selected" : "";
+        echo "<option value='$formattedTime' $selected>$formattedTime</option>";
         $startTime = strtotime("+20 minutes", $startTime);
     }
     ?>
   </select>
 
-  <button type="submit">Submit</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 
