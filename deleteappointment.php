@@ -36,6 +36,7 @@ if ($stmt) {
     $stmt->execute();
     $stmt->close();
 
+
     header("Location: deleteresponse.php?success=true&message=successfully+deleted+the+appointment");
     exit();
 } else {

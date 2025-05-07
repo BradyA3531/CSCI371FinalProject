@@ -62,12 +62,12 @@ ORDER BY
 </form>
 
 <div class="text-center">
-    <a type="button" class="btn btn-danger" href="scheduleappointment.php">Schedule appointment?</a>
+    <a type="button" class="btn btn-primary" href="scheduleappointment.php">Schedule appointment</a>
 </div>
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $date = $_POST['date']; // e.g. '2025-04-27'
+    $date = $_POST['date'];
 
     if (!empty($date)) {
         $checkStmt = $conn->prepare($resetStmt);
@@ -139,7 +139,7 @@ if ($stmt) {
             list($date, $time) = explode(' ', $row["timeslot"]);
 
             echo("<tr><td>".$row["project_name"]."</td><td>".$row["usernames"]."</td><td>".$date."</td><td>".$time."</td>
-            <td><a href='updateappointment.php?id=" . $row["appointmentid"] . "'>edit</a> <a href='deleteappointment.php?id=" . $row["appointmentid"] . "'>delete</a></td></tr>");
+            <td><a class='btn btn-success' href='updateappointment.php?id=" . $row["appointmentid"] . "'>edit</a> <a class='btn btn-danger' href='deleteappointment.php?id=" . $row["appointmentid"] . "'>delete</a></td></tr>");
         }
 
     echo("</table>");
